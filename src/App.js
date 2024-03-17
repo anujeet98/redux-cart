@@ -6,18 +6,15 @@ import { Fragment, useEffect } from 'react';
 import Notification from './components/UI/Notification';
 import { uiSliceActions } from './Store/uiSlice';
 
+let isInitial = true;
 function App() {
   const dispatch = useDispatch();
   const showCart = useSelector(state => state.ui.showCart);
   const cart = useSelector(state => state.cart.cart);
   const notification = useSelector(state => state.ui.notification);
-  let isInitial = true;
-  console.log(isInitial)
   useEffect(()=>{
-    console.log(isInitial)
     if(isInitial){
       isInitial=false;  
-      console.log(isInitial)
       return;
     }
     (async()=>{

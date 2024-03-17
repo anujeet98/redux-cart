@@ -4,7 +4,7 @@ import Layout from './components/Layout/Layout';
 import Products from './components/Shop/Products';
 import { Fragment, useEffect } from 'react';
 import Notification from './components/UI/Notification';
-import { uiSliceActions } from './Store/uiSlice';
+import { getCartData, sendCartData } from './Store/cartSlice';
 
 let isInitial = true;
 function App() {
@@ -14,26 +14,11 @@ function App() {
   const notification = useSelector(state => state.ui.notification);
   useEffect(()=>{
     if(isInitial){
+      dispatch(getCartData());
       isInitial=false;  
       return;
     }
-    (async()=>{
-      try{
-        const res = await fetch('https://expense-tracker-6d78c-default-rtdb.firebaseio.com/reduxcart.json',{
-          method: 'PUT',
-          body: JSON.stringify(cart),
-        });
-        const resData = await res.json();
-        if(!res.ok){
-          throw new Error(resData);
-        }
-
-        dispatch(uiSliceActions.showNotification({title: 'Success!', status: 'success', message: 'Sent cart data successfully!'}));
-      }
-      catch(err){
-        dispatch(uiSliceActions.showNotification({title: 'Error!', status: 'error', message: 'Sending cart data failed!'}));
-      }
-    })()
+    dispatch(sendCartData(cart));
   },[cart, dispatch]);
 
   // setTimeout(()=>{

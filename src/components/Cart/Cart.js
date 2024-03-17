@@ -11,7 +11,7 @@ const Cart = () => {
       <ul>
         {cart.map(cartItem => (
           <CartItem key= {cartItem.title}
-          item={{ title: cartItem.title, quantity: cartItem.quantity, total: cartItem.price * cartItem.quantity , price: cartItem.price }}
+          item={{id: cartItem.id, title: cartItem.title, quantity: cartItem.quantity, total: cartItem.price * cartItem.quantity , price: cartItem.price }}
         />
         ))}
       </ul>

@@ -1,17 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {showCart: false, cart: []};
+const initialState = {cart: []};
 const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers:{
-        toggleCart(state){
-            state.showCart = !state.showCart;
-        },
         addToCart(state, action){
             let isItemAvailable = false;
             state.cart.forEach(item => {
-                if(item.title === action.payload.title){
+                if(item.id === action.payload.id){
                     item.quantity++;
                     isItemAvailable = true;
                 }
@@ -21,7 +18,7 @@ const cartSlice = createSlice({
         },
         removeFromCart(state, action){
             state.cart = state.cart.map(item => {
-                if(item.title === action.payload){
+                if(item.id === action.payload){
                     item.quantity--;;
                 }
                 return item;
